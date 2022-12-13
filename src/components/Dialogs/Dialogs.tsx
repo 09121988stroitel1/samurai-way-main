@@ -11,7 +11,7 @@ type MessagePropsType = {
     message: string
 }
 
-const DialogItem = (props: DialogItemPropsType) => {
+const DialogItem: React.FC<DialogItemPropsType> = (props) => {
     return(
         <div className={s.dialog}>
             <NavLink to={"/dialogs/" + props.id}>{props.name}</NavLink>

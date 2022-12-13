@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Header.module.css'
 
-const Header = () => {
+const Header: React.FC = () => {
     return (
         <header className={s.header}>
             <img src={"https://media-exp1.licdn.com/" +
