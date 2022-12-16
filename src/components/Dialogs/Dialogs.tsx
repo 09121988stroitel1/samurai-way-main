@@ -3,11 +3,12 @@ import s from "./Dialogs.module.css"
 import {NavLink} from "react-router-dom";
 
 type DialogItemPropsType = {
-    id: string
+    id: number
     name: string
 }
 
 type MessagePropsType = {
+    id: number
     message: string
 }
 
@@ -21,34 +22,40 @@ const DialogItem: React.FC<DialogItemPropsType> = (props) => {
 
 const Message = (props:MessagePropsType)=> {
     return (
-        <div className={s.message}>{props.message}</div>
+        <div className={s.message} key={props.id}>{props.message}</div>
     )
 }
 
 const Dialogs = () => {
+    let dialogs:  DialogItemPropsType[] = [
+        {id: 1, name: 'Aleks'},
+        {id: 2, name: 'Andrey'},
+        {id: 3, name: 'Vasia'},
+        {id: 4, name: 'Lili'},
+        {id: 5, name: 'Sisi' },
+        {id: 6, name: 'Рик'},
+    ]
+    let messagesData:  MessagePropsType[] = [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'Hou are yuo?'},
+        {id: 3, message: 'Im faind'},
+    ]
     return (
-       <div className={s.dialogs}>
+       <div className={s.dialogs + ' ' + s.active}>
            <div className={s.dialogsItem}>
-              <DialogItem name='Aleks' id='1'/>
-               <div className={s.dialog + ' ' + s.active}>
-                   <NavLink to="/dialogs/2"> Andrey</NavLink>
-              </div>
-               <div className={s.dialog}>
-                   <NavLink to="/dialogs/3">Vasia</NavLink>
-              </div>
-               <div className={s.dialog}>
-                   <NavLink to="/dialogs/4">Lili</NavLink>
-              </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/5">Sisi</NavLink>
-              </div>
+               {dialogs.map((i)=> {
+                   return(
+                       <DialogItem name = {i.name} id ={i.id}/>
+                       )
 
+               })}
            </div>
            <div className={s.messages}>
-               <Message message='Hi'/>
-               <div className={s.message}>Hou are yuo?</div>
-               <div className={s.message}>Im faind</div>
-
+               {messagesData.map((i)=> {
+                   return (
+                       <Message id={i.id} message={i.message}/>
+                   )
+               })}
            </div>
        </div>
     )
