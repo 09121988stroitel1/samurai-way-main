@@ -13,6 +13,13 @@ const MyPosts: React.FC = () => {
         {id: 2, message: 'Hou are yuo?',  likesCount: 7},
         {id: 3, message: 'Im faind',  likesCount: 5},
     ]
+
+    let postsElements = postsData.map((i)=> {
+        return (
+            <Post id={i.id} message={i.message} like={i.likesCount}/>
+        )}
+    )
+
     return (
         <div className={s.postsBlock}>
             <h2>My posts</h2>
@@ -26,11 +33,7 @@ const MyPosts: React.FC = () => {
 
             </div>
             <div className={s.posts}>
-                {postsData.map((i)=> {
-                    return (
-                        <Post id={i.id} message={i.message} like={i.likesCount}/>
-                    )}
-                )}
+                {postsElements}
             </div>
 
 

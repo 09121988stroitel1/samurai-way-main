@@ -35,27 +35,31 @@ const Dialogs = () => {
         {id: 5, name: 'Sisi' },
         {id: 6, name: 'Рик'},
     ]
+
+    let dialogsElement = dialogs.map((i)=> {
+            return(
+                <DialogItem name = {i.name} id ={i.id}/>
+            )
+        })
+
     let messagesData:  MessagePropsType[] = [
         {id: 1, message: 'Hi'},
         {id: 2, message: 'Hou are yuo?'},
         {id: 3, message: 'Im faind'},
     ]
+
+    let messagesElement = messagesData.map((i)=> {
+        return (
+            <Message id={i.id} message={i.message}/>
+        )
+    })
     return (
        <div className={s.dialogs + ' ' + s.active}>
            <div className={s.dialogsItem}>
-               {dialogs.map((i)=> {
-                   return(
-                       <DialogItem name = {i.name} id ={i.id}/>
-                       )
-
-               })}
+               {dialogsElement}
            </div>
            <div className={s.messages}>
-               {messagesData.map((i)=> {
-                   return (
-                       <Message id={i.id} message={i.message}/>
-                   )
-               })}
+               {messagesElement}
            </div>
        </div>
     )
