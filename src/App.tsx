@@ -5,10 +5,10 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {PostsType} from "./index";
+import {StateType} from "./redux/state";
 
 type PropsType = {
-    posts: PostsType[]
+    state: StateType
 }
 
 
@@ -20,11 +20,16 @@ function App(props:PropsType) {
                 <Header/>
                 <Navbar/>
                 <div className="content">
-                    <Route path="/profile" render={()=> <Profile posts={props.posts} />}/>
-                    <Route path='/dialogs' render={()=> <Dialogs /> }/>
+                    <Route path="/profile" render={()=> <Profile
+                        posts={props.state.profilePage.posts} />}/>
+
+                    <Route path='/dialogs' render={()=> <Dialogs
+                        dialogsMessages={props.state.messagesPage}
+
+
+                    /> }/>
                     {/*<Route path=# component={News}/>*/}
                     {/*<Route path='/dialogs' component={Music}/>*/}
-
 
                 </div>
 
