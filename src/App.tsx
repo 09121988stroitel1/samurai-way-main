@@ -4,7 +4,7 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
+import { Route} from "react-router-dom";
 import {StateType} from "./redux/state";
 
 type PropsType = {
@@ -15,7 +15,7 @@ type PropsType = {
 
 function App(props:PropsType) {
     return (
-        <BrowserRouter>
+
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
@@ -26,7 +26,6 @@ function App(props:PropsType) {
                     <Route path='/dialogs' render={()=> <Dialogs
                         dialogsMessages={props.state.messagesPage}
 
-
                     /> }/>
                     {/*<Route path=# component={News}/>*/}
                     {/*<Route path='/dialogs' component={Music}/>*/}
@@ -34,7 +33,7 @@ function App(props:PropsType) {
                 </div>
 
             </div>
-        </BrowserRouter>
+
 
     );
 }
