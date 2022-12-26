@@ -9,8 +9,6 @@ type StateIndexType = {
     state: StateType
 }
 
-
-
 ReactDOM.render(
     <BrowserRouter>
     <App state={state}/>
