@@ -5,7 +5,7 @@ import {PostsType} from '../../../redux/state';
 
 export type PostsPropsType = {
     posts: PostsType[]
-    addPost: (postMessage: string)=> void
+    addPost: (postMessage: string) => void
 }
 
 const MyPosts: React.FC<PostsPropsType> = (props) => {
@@ -19,8 +19,11 @@ const MyPosts: React.FC<PostsPropsType> = (props) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const addPost = () => {
-        let text:string = newPostElement.current?.value ? newPostElement.current?.value : ''
-     props.addPost(text)
+        let text: string = newPostElement!.current!.value
+        // ? newPostElement.current?.value : ''
+        props.addPost(text)
+        // newPostElement && newPostElement.current &&
+        newPostElement!.current!.value = ''
     }
 
     return (
