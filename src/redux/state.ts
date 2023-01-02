@@ -18,6 +18,7 @@ export type MessagePropsType = {
 
 export type profilePageType = {
     posts: PostsType[]
+    newPostText: string
 }
 export type messagesPageType = {
     dialogs:  DialogItemPropsType[]
@@ -38,6 +39,7 @@ let state: StateType= {
             {id: 2, message: 'Hou are yuo?',  likesCount: 7},
             {id: 3, message: 'Im faind',  likesCount: 5},
         ],
+        newPostText: ''
     },
     messagesPage: {
         dialogs:   [
@@ -56,13 +58,19 @@ let state: StateType= {
     }
 }
 
-export let addPost = (postMessage: string)=> {
+
+export let addPost = ()=> {
     let newPost = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 12
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+     rerenderIntireThree(state)
+}
+export let updateNewPostText = (newText: string)=> {
+    state.profilePage.newPostText = (newText)
      rerenderIntireThree(state)
 }
 
