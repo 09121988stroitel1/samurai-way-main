@@ -1,5 +1,3 @@
-import {rerenderIntireThree} from '../render';
-
 
 export type PostsType = {
     id: number
@@ -20,6 +18,7 @@ export type profilePageType = {
     posts: PostsType[]
     newPostText: string
 }
+
 export type messagesPageType = {
     dialogs:  DialogItemPropsType[]
     messages:  MessagePropsType[]
@@ -30,6 +29,11 @@ export type StateType = {
     profilePage: profilePageType
     messagesPage: messagesPageType
 
+}
+
+
+let  rerenderEntireThree = () => {
+    console.log('state changed')
 }
 
 let state: StateType= {
@@ -59,7 +63,7 @@ let state: StateType= {
 }
 
 
-export let addPost = ()=> {
+export const addPost = ()=> {
     let newPost = {
         id: 5,
         message: state.profilePage.newPostText,
@@ -67,11 +71,17 @@ export let addPost = ()=> {
     }
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-     rerenderIntireThree(state)
+     rerenderEntireThree()
+
 }
-export let updateNewPostText = (newText: string)=> {
+export const updateNewPostText = (newText: string)=> {
     state.profilePage.newPostText = (newText)
-     rerenderIntireThree(state)
+     rerenderEntireThree()
+
+}
+
+export const subscribe =(observer: ()=> void) => {
+    rerenderEntireThree= observer
 }
 
 export default state
