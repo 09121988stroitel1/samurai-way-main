@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {addPost, updateNewPostText, StateType, subscribe} from './redux/state';
+import  store from './redux/state';
 import {BrowserRouter} from "react-router-dom";
 import state from './redux/state';
 
@@ -10,9 +10,9 @@ import state from './redux/state';
 let rerenderEntireThree= () => {
  ReactDOM.render(
      <BrowserRouter>
-      <App state={state}
-           addPost={addPost}
-           updateNewPostText={updateNewPostText}
+      <App  store={ store}
+           // addPost={addPost}
+           // updateNewPostText={updateNewPostText}
       />
      </BrowserRouter>
      ,
@@ -21,4 +21,4 @@ let rerenderEntireThree= () => {
 }
 
  rerenderEntireThree()
-subscribe(rerenderEntireThree)
+store.subscribe(rerenderEntireThree)
