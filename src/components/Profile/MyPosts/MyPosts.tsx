@@ -5,8 +5,7 @@ import {PostsType, profilePageType} from '../../../redux/state';
 
 export type PostsPropsType = {
     profilePage: profilePageType
-    addPost: () => void
-    updateNewPostText: (newText: string)=> void
+    dispatch: (action: any) => void
 }
 
 const MyPosts: React.FC<PostsPropsType> = (props) => {
@@ -20,12 +19,14 @@ const MyPosts: React.FC<PostsPropsType> = (props) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const addPost = () => {
-        props.addPost()
+        props.dispatch({ type: 'ADD-POST'})
+        // props.addPost()
 
     }
     let onPostChange = ()=> {
     let text: string = newPostElement!.current!.value
-        props.updateNewPostText(text)
+        props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText: text})
+        // props.updateNewPostText(text)
 
     }
 
