@@ -28,6 +28,7 @@ function App(props:PropsType) {
 
                     <Route path='/dialogs' render={()=> <Dialogs
                         dialogsMessages={props.state.messagesPage}
+                        dispatch = {props.dispatch}
 
                     /> }/>
                     {/*<Route path=# component={News}/>*/}

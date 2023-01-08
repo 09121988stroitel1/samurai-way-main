@@ -1,6 +1,7 @@
-
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const SEND_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
 
 
 export type PostsType = {
@@ -19,10 +20,12 @@ export type MessagePropsType = {
 export type profilePageType = {
     posts: PostsType[]
     newPostText: string
+
 }
 export type messagesPageType = {
     dialogs: DialogItemPropsType[]
     messages: MessagePropsType[]
+    newMessageBody: string
 }
 export type StateType = {
     profilePage: profilePageType
@@ -61,7 +64,8 @@ let store: StoreType = {
                 {id: 1, message: 'Hi'},
                 {id: 2, message: 'Hou are yuo?'},
                 {id: 3, message: 'Im faind'},
-            ]
+            ],
+            newMessageBody: ''
         }
     },
 
@@ -75,7 +79,7 @@ let store: StoreType = {
         console.log('state changed')
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             let newPost = {
                 id: 5,
                 message: this.state.profilePage.newPostText,
@@ -84,8 +88,19 @@ let store: StoreType = {
             this.state.profilePage.posts.push(newPost)
             this.state.profilePage.newPostText = ''
             this.rerenderEntireThree()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this.state.profilePage.newPostText = (action.newText)
+            this.rerenderEntireThree()
+        } else if (action.type === SEND_MESSAGE) {
+            let newMessage = {
+                id: 1,
+                message: this.state.messagesPage.newMessageBody
+            }
+            this.state.messagesPage.messages.push(newMessage)
+            this.state.messagesPage.newMessageBody = ''
+            this.rerenderEntireThree()
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this.state.messagesPage.newMessageBody = (action.newMessage)
             this.rerenderEntireThree()
         }
     },
@@ -97,6 +112,13 @@ export let updateNewPostTextActionCreator = (text: string) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
         newText: text
+    }
+}
+export let addMessageActionCreator = () => ({type: SEND_MESSAGE})
+export let updateNewMessageBodyActionCreator = (text: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_BODY,
+        newMessage: text
     }
 }
 
