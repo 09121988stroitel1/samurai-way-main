@@ -1,3 +1,8 @@
+
+const ADD_POST = 'ADD-POST'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+
+
 export type PostsType = {
     id: number
     message: string
@@ -27,8 +32,6 @@ export type StateType = {
 }
 export type StoreType = {
     state: StateType
-    // updateNewPostText: (newText: string) => void
-    // addPost: () => void
     rerenderEntireThree: () => void
     subscribe: (observer: () => void) => void
     getState: () => void
@@ -71,21 +74,6 @@ let store: StoreType = {
     rerenderEntireThree() {
         console.log('state changed')
     },
-
-    // updateNewPostText(newText: string) {
-    //     this.state.profilePage.newPostText = (newText)
-    //     this.rerenderEntireThree()
-    // },
-    // addPost() {
-    //     let newPost = {
-    //         id: 5,
-    //         message: this.state.profilePage.newPostText,
-    //         likesCount: 12
-    //     }
-    //     this.state.profilePage.posts.push(newPost)
-    //     this.state.profilePage.newPostText = ''
-    //     this.rerenderEntireThree()
-    // },
     dispatch(action) {
         if (action.type === 'ADD-POST') {
             let newPost = {
@@ -100,7 +88,16 @@ let store: StoreType = {
             this.state.profilePage.newPostText = (action.newText)
             this.rerenderEntireThree()
         }
-    }
-    }
+    },
 
-    export default store
+}
+
+export let addPostActionCreator = () => ({type: ADD_POST})
+export let updateNewPostTextActionCreator = (text: string) => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText: text
+    }
+}
+
+export default store

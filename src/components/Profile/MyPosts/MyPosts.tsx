@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
-import {PostsType, profilePageType} from '../../../redux/state';
+import {addPostActionCreator, profilePageType, updateNewPostTextActionCreator} from '../../../redux/state';
 
 export type PostsPropsType = {
     profilePage: profilePageType
@@ -19,15 +19,11 @@ const MyPosts: React.FC<PostsPropsType> = (props) => {
 
     let newPostElement = React.createRef<HTMLTextAreaElement>()
     const addPost = () => {
-        props.dispatch({ type: 'ADD-POST'})
-        // props.addPost()
-
+        props.dispatch(addPostActionCreator())
     }
-    let onPostChange = ()=> {
-    let text: string = newPostElement!.current!.value
-        props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText: text})
-        // props.updateNewPostText(text)
-
+    let onPostChange = () => {
+        let text: string = newPostElement!.current!.value
+        props.dispatch(updateNewPostTextActionCreator(text))
     }
 
     return (
@@ -37,7 +33,7 @@ const MyPosts: React.FC<PostsPropsType> = (props) => {
                 <div>
                     <textarea
                         ref={newPostElement}
-                         onChange={onPostChange}
+                        onChange={onPostChange}
                         value={props.profilePage.newPostText}/>
                 </div>
                 <div>
