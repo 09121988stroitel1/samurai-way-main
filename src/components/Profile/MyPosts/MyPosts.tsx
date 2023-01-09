@@ -1,14 +1,15 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
-import {addPostActionCreator, profilePageType, updateNewPostTextActionCreator} from '../../../redux/state';
+import {ActionType, profilePageType,} from '../../../redux/state';
+import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/Profile-reducer';
 
 export type PostsPropsType = {
     profilePage: profilePageType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
-const MyPosts: React.FC<PostsPropsType> = (props) => {
+const MyPosts: React.FC<PostsPropsType> = (props: PostsPropsType) => {
 
     let postsElements = props.profilePage.posts.map((i) => {
             return (

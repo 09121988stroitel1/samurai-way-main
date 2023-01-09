@@ -4,13 +4,14 @@ import {NavLink} from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Messages/Message';
 import {
-    addMessageActionCreator,
-    messagesPageType, updateNewMessageBodyActionCreator,
+    ActionType,
+    messagesPageType,
 } from '../../redux/state';
+import {addMessageActionCreator, updateNewMessageBodyActionCreator} from '../../redux/Dialogs-reducer';
 
 type DialogsMessagesPropsType = {
     dialogsMessages: messagesPageType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
 const Dialogs = (props: DialogsMessagesPropsType) => {

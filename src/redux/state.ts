@@ -1,6 +1,9 @@
+import profileReducer, {addPostActionCreator} from './Profile-reducer';
+import dialogReducer, {addMessageActionCreator} from './Dialogs-reducer';
+
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const SEND_MESSAGE = 'ADD-MESSAGE'
+const SEND_MESSAGE = 'SEND-MESSAGE'
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
 
 
@@ -38,8 +41,29 @@ export type StoreType = {
     rerenderEntireThree: () => void
     subscribe: (observer: () => void) => void
     getState: () => void
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
+
+// export type AddPostActionType = {
+//     type: 'ADD-POST'
+//     // newPostText: string
+// }
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+// export type SendMessage = {
+//     type: 'SEND-MESSAGE'
+//     newMessageBody: string
+// }
+export type SendMessage = ReturnType<typeof addMessageActionCreator>
+export type UpdateNewMessageActionType = {
+    type: 'UPDATE-NEW-MESSAGE-BODY'
+    newMessage: string
+}
+
+export type ActionType = AddPostActionType | UpdateNewPostTextActionType | SendMessage | UpdateNewMessageActionType
 
 let store: StoreType = {
     state: {
@@ -79,47 +103,13 @@ let store: StoreType = {
         console.log('state changed')
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: 5,
-                message: this.state.profilePage.newPostText,
-                likesCount: 12
-            }
-            this.state.profilePage.posts.push(newPost)
-            this.state.profilePage.newPostText = ''
-            this.rerenderEntireThree()
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this.state.profilePage.newPostText = (action.newText)
-            this.rerenderEntireThree()
-        } else if (action.type === SEND_MESSAGE) {
-            let newMessage = {
-                id: 1,
-                message: this.state.messagesPage.newMessageBody
-            }
-            this.state.messagesPage.messages.push(newMessage)
-            this.state.messagesPage.newMessageBody = ''
-            this.rerenderEntireThree()
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this.state.messagesPage.newMessageBody = (action.newMessage)
-            this.rerenderEntireThree()
-        }
-    },
 
+        this.state.profilePage =  profileReducer(this.state.profilePage, action)
+        this.state.messagesPage = dialogReducer(this.state.messagesPage, action)
+        this.rerenderEntireThree()
+     },
 }
 
-export let addPostActionCreator = () => ({type: ADD_POST})
-export let updateNewPostTextActionCreator = (text: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: text
-    }
-}
-export let addMessageActionCreator = () => ({type: SEND_MESSAGE})
-export let updateNewMessageBodyActionCreator = (text: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        newMessage: text
-    }
-}
+
 
 export default store
